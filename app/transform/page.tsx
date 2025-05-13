@@ -118,7 +118,7 @@ export default function TransformPage() {
 /Inspection/Findings/Finding/Severity
 /Inspection/Recommendations/Recommendation
 `);
-    } catch (err) {
+    } catch {
       setOutput('❌ XSLT Transformation failed');
       setXpathInfo('');
     }

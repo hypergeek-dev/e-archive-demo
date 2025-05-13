@@ -1,24 +1,25 @@
+import Image from 'next/image';
+
 export default function HomePage() {
   return (
     <main className="min-h-screen flex flex-col bg-black items-center justify-center px-4 text-center">
-      {/* Image in black box */}
       <div className="w-full max-w-xl mb-6 px-4 bg-black rounded-md shadow-md">
-        <img
+        <Image
           src="/assets/background.webp"
           alt="Database illustration"
+          width={800} 
+          height={400} 
           className="mx-auto max-h-64 w-auto object-contain rounded-md"
         />
       </div>
 
-      {/* Heading and description */}
       <h1 className="text-4xl font-bold mb-4">
         E-archive Demo Webapp
       </h1>
       <p className="text-lg max-w-xl text-gray-600 mb-8">
-      This is a 3-page portfolio project simulating a digital archive workflow, including XML transformation, basic metadata editing (CRUD), and OAIS model alignment
+        This is a 3-page portfolio project simulating a digital archive workflow, including XML transformation, basic metadata editing (CRUD), and OAIS model alignment
       </p>
 
-      {/* Navigation buttons */}
       <div className="flex flex-col sm:flex-row gap-4">
         <a
           href="/transform"
