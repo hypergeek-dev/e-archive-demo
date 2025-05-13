@@ -1,0 +1,23 @@
+[
+    { "id": 1, "documentType": "Budget Report", "year": 2022, "status": "Validated", "sourceSystem": "FinancialSystem", "archivist": "Anna Lund" },
+    { "id": 2, "documentType": "Meeting Minutes", "year": 2023, "status": "Pending Review", "sourceSystem": "DocumentManagementSystem", "archivist": "Erik Nyström" },
+    { "id": 3, "documentType": "School Inspection", "year": 2021, "status": "Archived", "sourceSystem": "EducationPlatform", "archivist": "Karin Månsson" },
+    { "id": 4, "documentType": "Healthcare Budget", "year": 2020, "status": "Validated", "sourceSystem": "HealthcareSystem", "archivist": "Lars Olofsson" },
+    { "id": 5, "documentType": "City Council Agenda", "year": 2023, "status": "Pending Metadata", "sourceSystem": "MunicipalMeetingPlatform", "archivist": "Emilia Berg" },
+    { "id": 6, "documentType": "Population Registry Extract", "year": 2022, "status": "Imported", "sourceSystem": "PopulationRegistrySystem", "archivist": "Magnus Dahl" },
+    { "id": 7, "documentType": "School Inspection", "year": 2023, "status": "Pending Validation", "sourceSystem": "EducationPlatform", "archivist": "Ingrid Falk" },
+    { "id": 8, "documentType": "Budget Report", "year": 2023, "status": "Validated", "sourceSystem": "FinancialSystem", "archivist": "Anna Lund" },
+    { "id": 9, "documentType": "City Council Agenda", "year": 2021, "status": "Archived", "sourceSystem": "MunicipalMeetingPlatform", "archivist": "Emilia Berg" },
+    { "id": 10, "documentType": "Healthcare Budget", "year": 2019, "status": "Validated", "sourceSystem": "HealthcareSystem", "archivist": "Lars Olofsson" },
+    { "id": 11, "documentType": "Public Transport Policy", "year": 2022, "status": "Pending Review", "sourceSystem": "TransportAuthoritySystem", "archivist": "Anneli Persson" },
+    { "id": 12, "documentType": "Budget Report", "year": 2020, "status": "Archived", "sourceSystem": "FinancialSystem", "archivist": "Anna Lund" },
+    { "id": 13, "documentType": "School Inspection", "year": 2020, "status": "Validated", "sourceSystem": "EducationPlatform", "archivist": "Karin Månsson" },
+    { "id": 14, "documentType": "Meeting Minutes", "year": 2022, "status": "Validated", "sourceSystem": "DocumentManagementSystem", "archivist": "Erik Nyström" },
+    { "id": 15, "documentType": "Population Registry Extract", "year": 2023, "status": "Imported", "sourceSystem": "PopulationRegistrySystem", "archivist": "Magnus Dahl" },
+    { "id": 16, "documentType": "Healthcare Budget", "year": 2021, "status": "Pending Review", "sourceSystem": "HealthcareSystem", "archivist": "Lars Olofsson" },
+    { "id": 17, "documentType": "Meeting Minutes", "year": 2020, "status": "Archived", "sourceSystem": "DocumentManagementSystem", "archivist": "Erik Nyström" },
+    { "id": 18, "documentType": "Public Transport Policy", "year": 2023, "status": "Validated", "sourceSystem": "TransportAuthoritySystem", "archivist": "Anneli Persson" },
+    { "id": 19, "documentType": "City Council Agenda", "year": 2022, "status": "Pending Metadata", "sourceSystem": "MunicipalMeetingPlatform", "archivist": "Emilia Berg" },
+    { "id": 20, "documentType": "School Inspection", "year": 2024, "status": "Pending Validation", "sourceSystem": "EducationPlatform", "archivist": "Ingrid Falk" }
+  ]
+  
