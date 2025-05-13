@@ -1,4 +1,4 @@
-# e-archive-demo
+# E-archive-demo
 
 A 3-page portfolio webapp simulating archival data transformation, metadata editing (CRUD), and OAIS model mapping — built with **Next.js**, **TypeScript**, and **Tailwind CSS**.
 
@@ -6,7 +6,7 @@ This project demonstrates how modern web technologies can be used to simulate di
 
 ---
 
-## 📄 Pages Overview
+## Pages Overview
 
 ### 1. `/transform`
 Simulates **data ingest and transformation**:
