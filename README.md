@@ -8,14 +8,14 @@ This project demonstrates how modern web technologies can be used to simulate di
 
 ## Pages Overview
 
-### 1. `/transform`
+### 1. `Transform`
 Simulates **data ingest and transformation**:
 - Upload or load a preset XML document
 - Transform it into JSON client-side using parsing or mock XSLT logic
 - Display both XML and JSON side by side
 - Annotated explanations of mapping logic
 
-### 2. `/crud`
+### 2. `CRUD`
 Simulates **basic metadata record editing**:
 - List view of “archival deliveries”
 - Add new delivery records (Create)
@@ -25,7 +25,7 @@ Simulates **basic metadata record editing**:
 
 > Note: This page demonstrates CRUD functionality, not full metadata lifecycle or schema enforcement.
 
-### 3. `/oais`
+### 3. `OAIS`
 Conceptual **mapping to the OAIS reference model**:
 - Lists which OAIS functional entities are simulated
 - Shows which parts are omitted (e.g. METS packaging, long-term preservation)
