@@ -47,72 +47,72 @@ export default function CRUDPage() {
   };
 
   const [query, setQuery] = useState('');
-const [typeFilter, setTypeFilter] = useState('');
-const [statusFilter, setStatusFilter] = useState('');
-const [filtered, setFiltered] = useState<DocumentEntry[] | null>(null);
+  const [typeFilter, setTypeFilter] = useState('');
+  const [statusFilter, setStatusFilter] = useState('');
+  const [filtered, setFiltered] = useState<DocumentEntry[] | null>(null);
 
   return (
     <div className="p-6 max-w-6xl mx-auto">
       <h1 className="text-2xl font-bold mb-4">Municipal e-Archive: Document Registry</h1>
 
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 mb-4">
-  <input
-    type="text"
-    placeholder="Search by archivist..."
-    value={query}
-    onChange={(e) => setQuery(e.target.value)}
-    className="border px-3 py-2 rounded w-full bg-white text-black dark:bg-gray-900 dark:text-white dark:border-gray-600"
-  />
-  <select
-    value={typeFilter}
-    onChange={(e) => setTypeFilter(e.target.value)}
-    className="border px-3 py-2 rounded w-full bg-white text-black dark:bg-gray-900 dark:text-white dark:border-gray-600"
-  >
-    <option value="">All Types</option>
-    {[...new Set(documents.map((d) => d.documentType))].map((type) => (
-      <option key={type} value={type}>{type}</option>
-    ))}
-  </select>
-  <select
-    value={statusFilter}
-    onChange={(e) => setStatusFilter(e.target.value)}
-    className="border px-3 py-2 rounded w-full bg-white text-black dark:bg-gray-900 dark:text-white dark:border-gray-600"
-  >
-    <option value="">All Status Values</option>
-    {[...new Set(documents.map((d) => d.status))].map((status) => (
-      <option key={status} value={status}>{status}</option>
-    ))}
-  </select>
-  <div className="sm:col-span-3 flex flex-wrap gap-2 mt-2">
-    <button
-      onClick={() => {
-        const q = query.toLowerCase();
-        setFiltered(
-          documents.filter(
-            (d) =>
-              (!typeFilter || d.documentType === typeFilter) &&
-              (!statusFilter || d.status === statusFilter) &&
-              d.archivist.toLowerCase().includes(q)
-          )
-        );
-      }}
-      className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded"
-    >
-      Search
-    </button>
-    <button
-      onClick={() => {
-        setQuery('');
-        setTypeFilter('');
-        setStatusFilter('');
-        setFiltered(null);
-      }}
-      className="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded"
-    >
-      Reset Filters
-    </button>
-  </div>
-</div>
+        <input
+          type="text"
+          placeholder="Search by archivist..."
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          className="border px-3 py-2 rounded w-full bg-white text-black dark:bg-gray-900 dark:text-white dark:border-gray-600"
+        />
+        <select
+          value={typeFilter}
+          onChange={(e) => setTypeFilter(e.target.value)}
+          className="border px-3 py-2 rounded w-full bg-white text-black dark:bg-gray-900 dark:text-white dark:border-gray-600"
+        >
+          <option value="">All Types</option>
+          {[...new Set(documents.map((d) => d.documentType))].map((type) => (
+            <option key={type} value={type}>{type}</option>
+          ))}
+        </select>
+        <select
+          value={statusFilter}
+          onChange={(e) => setStatusFilter(e.target.value)}
+          className="border px-3 py-2 rounded w-full bg-white text-black dark:bg-gray-900 dark:text-white dark:border-gray-600"
+        >
+          <option value="">All Status Values</option>
+          {[...new Set(documents.map((d) => d.status))].map((status) => (
+            <option key={status} value={status}>{status}</option>
+          ))}
+        </select>
+        <div className="sm:col-span-3 flex flex-wrap gap-2 mt-2">
+          <button
+            onClick={() => {
+              const q = query.toLowerCase();
+              setFiltered(
+                documents.filter(
+                  (d) =>
+                    (!typeFilter || d.documentType === typeFilter) &&
+                    (!statusFilter || d.status === statusFilter) &&
+                    d.archivist.toLowerCase().includes(q)
+                )
+              );
+            }}
+            className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded"
+          >
+            Search
+          </button>
+          <button
+            onClick={() => {
+              setQuery('');
+              setTypeFilter('');
+              setStatusFilter('');
+              setFiltered(null);
+            }}
+            className="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded"
+          >
+            Reset Filters
+          </button>
+        </div>
+      </div>
 
       <table className="w-full table-auto border-collapse">
         <thead>
@@ -199,20 +199,20 @@ const [filtered, setFiltered] = useState<DocumentEntry[] | null>(null);
                     Save
                   </button>
                 ) : (
-                  <>
+                  <div className="flex flex-col items-center">
                     <button
                       onClick={() => handleEdit(doc)}
-                      className="text-sm px-2 py-1 bg-blue-500 text-white rounded mr-2"
+                      className="text-sm px-2 py-1 mb-2 bg-blue-500 text-white rounded w-full"
                     >
                       Edit
                     </button>
                     <button
                       onClick={() => handleDelete(doc.id)}
-                      className="text-sm px-2 py-1 bg-red-500 text-white rounded"
+                      className="text-sm px-2 py-1 bg-red-500 text-white rounded w-full"
                     >
                       Delete
                     </button>
-                  </>
+                  </div>
                 )}
               </td>
             </tr>

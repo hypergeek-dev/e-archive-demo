@@ -30,7 +30,7 @@ export default function HomePage() {
           href="/crud"
           className="bg-green-600 hover:bg-green-700 text-white py-2 px-6 rounded shadow"
         >
-          🗂️ Metadata CRUD
+          🗂️ CRUD
         </a>
         <a
           href="/oais"
