@@ -1,4 +1,3 @@
-// app/transform/page.tsx
 'use client';
 
 import { useState } from 'react';
@@ -12,91 +11,129 @@ const presets = [
 export default function TransformPage() {
   const [selectedFile, setSelectedFile] = useState('');
   const [xmlInput, setXmlInput] = useState('');
-  const [jsonOutput, setJsonOutput] = useState('');
+  const [output, setOutput] = useState('');
   const [xpathInfo, setXpathInfo] = useState('');
 
   const loadPreset = async (filename: string) => {
     const res = await fetch(`/xml/${filename}`);
     const text = await res.text();
     setXmlInput(text);
-    setJsonOutput('');
-    setXpathInfo('');
+    setOutput('');
+    
   };
 
-  const handleTransform = () => {
+  const handleTransform = async () => {
     try {
       const parser = new DOMParser();
-      const xmlDoc = parser.parseFromString(xmlInput, 'application/xml');
+      const xmlDoc = parser.parseFromString(xmlInput, 'text/xml');
 
-      const root = xmlDoc.documentElement.nodeName;
-      let output: any = {};
-      let xpaths: string[] = [];
+      const xsltString = `<?xml version="1.0" encoding="UTF-8"?>
+        <xsl:stylesheet version="1.0"
+          xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+          <xsl:output method="text" />
+          <xsl:template match="/">
+            <xsl:text>{</xsl:text>
+            <xsl:choose>
+              <xsl:when test="BudgetReport">
+                <xsl:text>\n  \"type\": \"Budget Report\",</xsl:text>
+                <xsl:text>\n  \"year\": \"</xsl:text><xsl:value-of select="BudgetReport/Year"/><xsl:text>\",</xsl:text>
+                <xsl:text>\n  \"departments\": [</xsl:text>
+                <xsl:for-each select="BudgetReport/Department">
+                  <xsl:text>{\"name\": \"</xsl:text><xsl:value-of select="@name"/><xsl:text>\", \"allocated\": \"</xsl:text><xsl:value-of select="Allocated"/><xsl:text>\", \"spent\": \"</xsl:text><xsl:value-of select="Spent"/><xsl:text>\"}</xsl:text>
+                  <xsl:if test="position() != last()">
+                    <xsl:text>,</xsl:text>
+                  </xsl:if>
+                </xsl:for-each>
+                <xsl:text>]</xsl:text>
+              </xsl:when>
+              <xsl:when test="Meeting">
+                <xsl:text>\n  \"type\": \"City Council Minutes\",</xsl:text>
+                <xsl:text>\n  \"date\": \"</xsl:text><xsl:value-of select="Meeting/Date"/><xsl:text>\",</xsl:text>
+                <xsl:text>\n  \"location\": \"</xsl:text><xsl:value-of select="Meeting/Location"/><xsl:text>\",</xsl:text>
+                <xsl:text>\n  \"attendees\": [</xsl:text>
+                <xsl:for-each select="Meeting/Attendees/Member">
+                  <xsl:text>\"</xsl:text><xsl:value-of select="."/><xsl:text>\"</xsl:text>
+                  <xsl:if test="position() != last()">
+                    <xsl:text>, </xsl:text>
+                  </xsl:if>
+                </xsl:for-each>
+                <xsl:text>],</xsl:text>
+                <xsl:text>\n  \"agenda\": [</xsl:text>
+                <xsl:for-each select="Meeting/Agenda/Item">
+                  <xsl:text>{\"title\": \"</xsl:text><xsl:value-of select="Title"/><xsl:text>\", \"decision\": \"</xsl:text><xsl:value-of select="Decision"/><xsl:text>\"}</xsl:text>
+                  <xsl:if test="position() != last()">
+                    <xsl:text>, </xsl:text>
+                  </xsl:if>
+                </xsl:for-each>
+                <xsl:text>]</xsl:text>
+              </xsl:when>
+              <xsl:when test="Inspection">
+                <xsl:text>\n  \"type\": \"School Inspection\",</xsl:text>
+                <xsl:text>\n  \"school\": \"</xsl:text><xsl:value-of select="Inspection/SchoolName"/><xsl:text>\",</xsl:text>
+                <xsl:text>\n  \"date\": \"</xsl:text><xsl:value-of select="Inspection/Date"/><xsl:text>\",</xsl:text>
+                <xsl:text>\n  \"findings\": [</xsl:text>
+                <xsl:for-each select="Inspection/Findings/Finding">
+                  <xsl:text>{\"issue\": \"</xsl:text><xsl:value-of select="Issue"/><xsl:text>\", \"severity\": \"</xsl:text><xsl:value-of select="Severity"/><xsl:text>\"}</xsl:text>
+                  <xsl:if test="position() != last()">
+                    <xsl:text>, </xsl:text>
+                  </xsl:if>
+                </xsl:for-each>
+                <xsl:text>],</xsl:text>
+                <xsl:text>\n  \"recommendations\": [</xsl:text>
+                <xsl:for-each select="Inspection/Recommendations/Recommendation">
+                  <xsl:text>\"</xsl:text><xsl:value-of select="."/><xsl:text>\"</xsl:text>
+                  <xsl:if test="position() != last()">
+                    <xsl:text>, </xsl:text>
+                  </xsl:if>
+                </xsl:for-each>
+                <xsl:text>]</xsl:text>
+              </xsl:when>
+              <xsl:otherwise>
+                <xsl:text>\n  \"error\": \"Unsupported document structure.\"</xsl:text>
+              </xsl:otherwise>
+            </xsl:choose>
+            <xsl:text>\n}</xsl:text>
+          </xsl:template>
+        </xsl:stylesheet>`;
 
-      if (root === 'BudgetReport') {
-        const departments = Array.from(xmlDoc.getElementsByTagName('Department')).map((el) => {
-          xpaths.push(`/BudgetReport/Department[@name='${el.getAttribute('name')}']`);
-          return {
-            name: el.getAttribute('name'),
-            allocated: el.getElementsByTagName('Allocated')[0]?.textContent,
-            spent: el.getElementsByTagName('Spent')[0]?.textContent,
-          };
-        });
-        output = {
-          type: 'Budget Report',
-          year: xmlDoc.getElementsByTagName('Year')[0]?.textContent,
-          departments,
-        };
-        xpaths.push('/BudgetReport/Year');
+      const xsltDoc = parser.parseFromString(xsltString, 'text/xml');
+      const processor = new XSLTProcessor();
+      processor.importStylesheet(xsltDoc);
 
-      } else if (root === 'Meeting') {
-        const members = Array.from(xmlDoc.getElementsByTagName('Member')).map((m) => m.textContent);
-        const items = Array.from(xmlDoc.getElementsByTagName('Item')).map((item) => ({
-          title: item.getElementsByTagName('Title')[0]?.textContent,
-          decision: item.getElementsByTagName('Decision')[0]?.textContent,
-        }));
-        output = {
-          type: 'Council Minutes',
-          date: xmlDoc.getElementsByTagName('Date')[0]?.textContent,
-          location: xmlDoc.getElementsByTagName('Location')[0]?.textContent,
-          attendees: members,
-          agenda: items,
-        };
-        xpaths.push('/Meeting/Date', '/Meeting/Location', '/Meeting/Attendees/Member', '/Meeting/Agenda/Item');
-
-      } else if (root === 'Inspection') {
-        const findings = Array.from(xmlDoc.getElementsByTagName('Finding')).map((f) => ({
-          issue: f.getElementsByTagName('Issue')[0]?.textContent,
-          severity: f.getElementsByTagName('Severity')[0]?.textContent,
-        }));
-        const recommendations = Array.from(xmlDoc.getElementsByTagName('Recommendation')).map((r) => r.textContent);
-        output = {
-          type: 'School Inspection',
-          school: xmlDoc.getElementsByTagName('SchoolName')[0]?.textContent,
-          date: xmlDoc.getElementsByTagName('Date')[0]?.textContent,
-          findings,
-          recommendations,
-        };
-        xpaths.push('/Inspection/SchoolName', '/Inspection/Date', '/Inspection/Findings/Finding', '/Inspection/Recommendations/Recommendation');
-      }
-
-      setJsonOutput(JSON.stringify(output, null, 2));
-      setXpathInfo(xpaths.join('\n'));
-    } catch (error) {
-      setJsonOutput('Error parsing XML');
+      const transformed = processor.transformToFragment(xmlDoc, document);
+      setOutput(transformed.textContent || '');
+      setXpathInfo(`
+/BudgetReport/Year
+/BudgetReport/Department/@name
+/BudgetReport/Department/Allocated
+/BudgetReport/Department/Spent
+/Meeting/Date
+/Meeting/Location
+/Meeting/Attendees/Member
+/Meeting/Agenda/Item/Title
+/Meeting/Agenda/Item/Decision
+/Inspection/SchoolName
+/Inspection/Date
+/Inspection/Findings/Finding/Issue
+/Inspection/Findings/Finding/Severity
+/Inspection/Recommendations/Recommendation
+`);
+    } catch (err) {
+      setOutput('❌ XSLT Transformation failed');
       setXpathInfo('');
     }
   };
 
   return (
     <div className="flex flex-col items-center gap-4 px-4 pb-12">
-      <h1 className="text-2xl font-bold mt-4 mb-2">XML ➝ JSON Transformation</h1>
+      <h1 className="text-2xl font-bold mt-4 mb-2">XML ➝ JSON (via XSLT) Transformation</h1>
 
       <select
         onChange={(e) => {
           setSelectedFile(e.target.value);
           loadPreset(e.target.value);
         }}
-        className="border p-2 rounded w-full max-w-md"
+        className="border p-2 rounded w-full max-w-md bg-white text-gray-800 dark:bg-gray-800 dark:text-gray-100 dark:border-gray-600"
         value={selectedFile}
       >
         <option value="">Select an XML preset...</option>
@@ -112,7 +149,7 @@ export default function TransformPage() {
         onChange={(e) => setXmlInput(e.target.value)}
         placeholder="Paste or load XML content here..."
         rows={10}
-        className="w-full max-w-4xl font-mono border border-gray-300 rounded p-3"
+        className="w-full max-w-4xl font-mono border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 text-black dark:text-white rounded p-3"
       />
 
       <button
@@ -122,16 +159,16 @@ export default function TransformPage() {
         Transform
       </button>
 
-      {jsonOutput && (
-        <pre className="w-full max-w-4xl bg-gray-100 border border-gray-300 rounded p-4 whitespace-pre-wrap overflow-x-auto">
-          {jsonOutput}
+      {output && (
+        <pre className="w-full max-w-4xl bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-100 border border-gray-300 dark:border-gray-600 rounded p-4 whitespace-pre-wrap overflow-x-auto">
+          {output}
         </pre>
       )}
 
-      {xpathInfo && (
+      {output && xpathInfo && (
         <div className="w-full max-w-4xl mt-4">
           <h2 className="text-lg font-semibold mb-2">XPath Expressions Used</h2>
-          <pre className="bg-gray-50 border border-gray-300 rounded p-3 text-sm text-gray-700 whitespace-pre-wrap">
+          <pre className="bg-gray-50 dark:bg-gray-900 border border-gray-300 dark:border-gray-600 rounded p-3 text-sm text-gray-700 dark:text-gray-300 whitespace-pre-wrap">
             {xpathInfo}
           </pre>
         </div>
