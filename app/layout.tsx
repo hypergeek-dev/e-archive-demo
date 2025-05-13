@@ -9,7 +9,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     <html lang="en">
       <body className="bg-white text-gray-900 font-sans">
         <header className="w-full p-4 flex justify-center border-b border-gray-200 mb-8">
-          <Link href="/" className="text-green-600 hover:text-green-800 text-2xl">
+          <Link href="/" className="text-green-600 hover:text-green-800 text-4xl">
             <FaHome title="Go to Home" />
           </Link>
         </header>
