@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BudgetReport>
+  <Year>2023</Year>
+  <Department name="Education">
+    <Allocated>5000000</Allocated>
+    <Spent>4800000</Spent>
+  </Department>
+  <Department name="Infrastructure">
+    <Allocated>8000000</Allocated>
+    <Spent>7500000</Spent>
+  </Department>
+</BudgetReport>

@@ -1,0 +1,18 @@
+<Inspection>
+  <SchoolName>Central Primary School</SchoolName>
+  <Date>2023-04-22</Date>
+  <Findings>
+    <Finding>
+      <Issue>Outdated textbooks</Issue>
+      <Severity>Medium</Severity>
+    </Finding>
+    <Finding>
+      <Issue>Excellent student engagement</Issue>
+      <Severity>Positive</Severity>
+    </Finding>
+  </Findings>
+  <Recommendations>
+    <Recommendation>Update curriculum materials</Recommendation>
+    <Recommendation>Continue teacher training programs</Recommendation>
+  </Recommendations>
+</Inspection>

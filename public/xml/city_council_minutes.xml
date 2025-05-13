@@ -1,0 +1,19 @@
+<Meeting>
+  <Date>2023-05-14</Date>
+  <Location>City Hall</Location>
+  <Attendees>
+    <Member>Anna Svensson</Member>
+    <Member>Johan Nilsson</Member>
+    <Member>Elin Andersson</Member>
+  </Attendees>
+  <Agenda>
+    <Item>
+      <Title>New Public Park Proposal</Title>
+      <Decision>Approved</Decision>
+    </Item>
+    <Item>
+      <Title>Budget Review</Title>
+      <Decision>Postponed</Decision>
+    </Item>
+  </Agenda>
+</Meeting>
