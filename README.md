@@ -30,7 +30,6 @@ Conceptual **mapping to the OAIS reference model**:
 - Lists which OAIS functional entities are simulated
 - Shows which parts are omitted (e.g. METS packaging, long-term preservation)
 - Textual explanation only (no functional logic)
-- Page styled in line with the dark theme used site-wide
 
 ---
 
