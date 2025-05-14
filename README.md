@@ -93,7 +93,7 @@ This portfolio project was built by **Dennis Jensen**, with the goal of showcasi
 
 To create this, I used the help of **OpenAI tools** in the following ways:
 - Text content suggestions for explanatory sections, xmls, database and OAIS descriptions.
-- mage generation for the landing page illustration.
+- Image generation for the landing page illustration.
 - Code refactoring and best-practice guidance on layout, Tailwind usage, and state handling.
 
 The intention behind this project is educational, and no production-level preservation logic or standards-compliance is implemented.
@@ -103,8 +103,7 @@ The intention behind this project is educational, and no production-level preser
 ## Author
 
 **Dennis Jensen**  
-Developer, educator, and open archival systems enthusiast.  
-Location: Sweden | Languages: English, Danish, Swedish
+Full Stack developer  
 
 
 ---
