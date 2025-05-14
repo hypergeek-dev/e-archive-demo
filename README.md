@@ -2,7 +2,7 @@
 
 A 3-page portfolio webapp simulating archival data transformation, metadata editing (CRUD), and OAIS model mapping — built with **Next.js**, **TypeScript**, and **Tailwind CSS**.
 
-This project demonstrates how modern web technologies can be used to simulate digital archiving workflows, inspired by standards like OAIS and archival concepts such as SIP/AIP/DIP and METS/XML structures.
+This project demonstrates simulation of digital archiving workflows, inspired by standards like OAIS and archival concepts such as SIP/AIP/DIP and METS/XML structures.
 
 ---
 
